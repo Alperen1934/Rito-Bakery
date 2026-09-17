@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rito Bakery Pizza — Kadıköy'de İtalyan ruhunu taşıyan artisan fırın, pizza ve kahve deneyimi.">
+  <title>Rito Bakery Pizza | Kadıköy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f8f1e6;
+      --paper: #fffaf2;
+      --terracotta: #a8462c;
+      --red: #8f2f20;
+      --brown: #38241c;
+      --muted: #806b5b;
+      --gold: #d59a4b;
+      --line: rgba(56,36,28,.14);
+      --shadow: 0 18px 45px rgba(76, 41, 24, .12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--brown);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(1140px, calc(100% - 40px)); margin: auto; }
+
+    header {
+      position: fixed;
+      z-index: 20;
+      width: 100%;
+      top: 0;
+      transition: .3s ease;
+    }
+    header.scrolled {
+      background: rgba(248,241,230,.94);
+      box-shadow: 0 4px 24px rgba(56,36,28,.1);
+      backdrop-filter: blur(12px);
+    }
+    .nav {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 700;
+      letter-spacing: -.4px;
+    }
+    .logo-mark {
+      width: 39px;
+      height: 39px;
+      border: 2px solid var(--terracotta);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--terracotta);
+      font-family: "Playfair Display", serif;
+      font-size: 21px;
+    }
+    .logo span:last-child { font-size: 16px; }
+    .nav-links { display: flex; gap: 31px; font-size: 14px; font-weight: 600; }
+    .nav-links a { transition: color .2s; }
+    .nav-links a:hover { color: var(--terracotta); }
+    .nav-button {
+      background: var(--terracotta);
+      color: white;
+      padding: 11px 19px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .25s;
+    }
+    .nav-button:hover { background: var(--red); transform: translateY(-2px); }
+    .menu-toggle { display: none; border: 0; background: none; color: var(--brown); font-size: 26px; cursor: pointer; }
+
+    .hero {
+      min-height: 720px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+      background: linear-gradient(90deg, rgba(34,18,12,.8), rgba(34,18,12,.35)), url("https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=2000&q=85") center/cover;
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 180px;
+      background: linear-gradient(transparent, var(--cream));
+    }
+    .hero-content { position: relative; z-index: 1; padding: 70px 20px 0; }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    h1, h2, h3 { font-family: "Playfair Display", serif; line-height: 1.1; }
+    h1 { font-size: clamp(52px, 8vw, 96px); max-width: 760px; margin: auto; }
+    .hero p { max-width: 510px; margin: 25px auto 32px; font-size: 18px; color: rgba(255,255,255,.87); }
+    .hero-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 23px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: .25s;
+    }
+    .button.primary { background: var(--terracotta); color: white; }
+    .button.light { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.45); color: white; backdrop-filter: blur(4px); }
+    .button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.16); }
+
+    section { padding: 105px 0; }
+    .section-heading { text-align: center; max-width: 610px; margin: 0 auto 52px; }
+    .section-heading h2 { font-size: clamp(34px, 5vw, 52px); margin-bottom: 15px; }
+    .section-heading p { color: var(--muted); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .about-photo { height: 480px; border-radius: 5px 110px 5px 110px; overflow: hidden; box-shadow: var(--shadow); position: relative; }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .about-copy .eyebrow { color: var(--terracotta); margin-bottom: 13px; }
+    .about-copy h2 { font-size: clamp(35px, 4vw, 51px); margin-bottom: 20px; }
+    .about-copy p { color: var(--muted); margin-bottom: 17px; }
+    .signature { color: var(--terracotta); font-family: "Playfair Display", serif; font-size: 25px; margin-top: 25px; }
+
+    .menu-section { background: var(--paper); }
+    .filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 38px; }
+    .filter {
+      cursor: pointer;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      padding: 10px 17px;
+      border-radius: 30px;
+      font: inherit;
+      font-size: 13px;
+      transition: .2s;
+    }
+    .filter:hover, .filter.active { background: var(--terracotta); color: white; border-color: var(--terracotta); }
+    .menu-group { margin: 45px 0 58px; }
+    .group-title { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+    .group-title h3 { font-size: 29px; white-space: nowrap; }
+    .group-title:after { content: ""; height: 1px; background: var(--line); width: 100%; }
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .item {
+      background: white;
+      border: 1px solid rgba(56,36,28,.07);
+      padding: 23px;
+      min-height: 160px;
+      position: relative;
+      transition: .3s ease;
+      box-shadow: 0 4px 14px rgba(56,36,28,.025);
+    }
+    .item:hover { transform: translateY(-7px); box-shadow: var(--shadow); }
+    .item-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .item h4 { font-family: "Playfair Display", serif; font-size: 21px; }
+    .price { color: var(--terracotta); font-weight: 700; white-space: nowrap; }
+    .item p { color: var(--muted); font-size: 13px; margin-top: 12px; max-width: 290px; }
+    .badge {
+      display: inline-block;
+      background: #f3d9ac;
+      color: #754c20;
+      border-radius: 20px;
+      padding: 5px 9px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      margin-bottom: 10px;
+    }
+    .item.hidden { display: none; }
+
+    .contact {
+      background: var(--brown);
+      color: var(--cream);
+      padding: 82px 0 35px;
+    }
+    .contact-grid { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 45px; padding-bottom: 65px; }
+    .contact h2 { font-size: 39px; margin-bottom: 15px; }
+    .contact p, .contact li { color: #cbb8aa; font-size: 14px; }
+    .contact h4 { color: var(--gold); font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; }
+    .contact ul { list-style: none; }
+    .contact li { margin-bottom: 9px; }
+    .contact li strong { color: var(--cream); font-weight: 500; }
+    .socials { display: flex; gap: 10px; margin-top: 20px; }
+    .socials a {
+      width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.25);
+      border-radius: 50%; display: grid; place-items: center; font-size: 15px; transition: .2s;
+    }
+    .socials a:hover { background: var(--terracotta); border-color: var(--terracotta); }
+    .order-buttons { display: flex; flex-direction: column; gap: 10px; }
+    .order-buttons a { border: 1px solid rgba(255,255,255,.2); padding: 11px 14px; border-radius: 5px; font-size: 13px; transition: .2s; }
+    .order-buttons a:hover { background: var(--terracotta); border-color: var(--terracotta); }
+    .copyright { border-top: 1px solid rgba(255,255,255,.12); padding-top: 22px; color: #a88f80; font-size: 12px; display: flex; justify-content: space-between; }
+
+    @media (max-width: 760px) {
+      .container { width: min(100% - 30px, 600px); }
+      .nav { height: 70px; }
+      .nav-links, .nav-button { display: none; }
+      .menu-toggle { display: block; }
+      .nav-links.open {
+        display: flex; position: absolute; top: 70px; left: 0; right: 0;
+        background: var(--cream); padding: 22px 25px; flex-direction: column; gap: 18px;
+        box-shadow: 0 10px 20px rgba(0,0,0,.08);
+      }
+      .hero { min-height: 650px; }
+      .hero p { font-size: 16px; }
+      section { padding: 72px 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 35px; }
+      .about-photo { height: 330px; border-radius: 4px 70px 4px 70px; order: 2; }
+      .about-copy { order: 1; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .group-title h3 { font-size: 24px; white-space: normal; }
+      .group-title { align-items: flex-start; }
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; padding-bottom: 40px; }
+      .contact h2 { font-size: 35px; }
+      .copyright { flex-direction: column; gap: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="container nav">
+      <a class="logo" href="#anasayfa">
+        <span class="logo-mark">R</span>
+        <span>Rito Bakery Pizza</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#hikayemiz">Hikâyemiz</a>
+        <a href="#menu">Menü</a>
+        <a href="#iletisim">Bize Ulaşın</a>
+      </nav>
+      <a class="nav-button" href="#menu">Menüyü Keşfet</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="anasayfa">
+      <div class="hero-content">
+        <div class="eyebrow">Kadıköy'den İtalyan ruhuyla</div>
+        <h1>İyi hamur,<br>iyi hayat.</h1>
+        <p>Odun ateşinde pişen pizzalar, fırından yeni çıkan kruvasanlar ve güne iyi başlayan kahveler.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="button primary">Menüyü İncele <span>↗</span></a>
+          <a href="#hikayemiz" class="button light">Bizi Tanıyın</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="hikayemiz">
+      <div class="container about-grid">
+        <div class="about-photo">
+          <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=85" alt="Rito Bakery fırınından taze ekmekler">
+        </div>
+        <div class="about-copy">
+          <div class="eyebrow">Rito'nun hikâyesi</div>
+          <h2>İki arkadaş,<br>tek bir tutku.</h2>
+          <p>Rito Bakery Pizza, iyi yemeğin etrafında bir araya gelmenin mutluluğuna inanan iki arkadaşın ortak hayaliyle doğdu.</p>
+          <p>En seçkin malzemeleri, sabırla dinlendirilmiş hamurları ve İtalyan tekniklerini bir araya getiriyor; her tabakta el yapımı, samimi ve gerçek bir lezzet sunuyoruz.</p>
+          <div class="signature">Afiyetle, Rito</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow" style="color:var(--terracotta)">Bugün ne yesek?</div>
+          <h2>Rito menüsü</h2>
+          <p>Uzun sofralar, bol kahkaha ve fırından çıktığı anda en güzel haline ulaşan lezzetler.</p>
+        </div>
+        <div class="filters">
+          <button class="filter active" data-filter="all">Tümü</button>
+          <button class="filter" data-filter="pizza">Pizza</button>
+          <button class="filter" data-filter="croissant">Kruvasan</button>
+          <button class="filter" data-filter="dessert">Tatlı</button>
+          <button class="filter" data-filter="drink">İçecek</button>
+        </div>
+
+        <div class="menu-group" data-category="pizza">
+          <div class="group-title"><h3>Odun Ateşinde Napolitan Pizzalar</h3></div>
+          <div class="menu-grid">
+            <article class="item"><div class="item-top"><h4>Margherita</h4><span class="price">₺390</span></div><p>San Marzano domates, fior di latte, fesleğen ve zeytinyağı.</p></article>
+            <article class="item"><div class="item-top"><h4>Diavola</h4><span class="price">₺490</span></div><p>Acılı Napoli sucuğu, mozzarella, domates sosu ve fermente biber.</p></article>
+            <article class="item"><div class="item-top"><h4>Rito İmza</h4><span class="price">₺540</span></div><p>Mevsim malzemeleriyle hazırlanan şefin günlük imza pizzası.</p></article>
+          </div>
+        </div>
+
+        <div class="menu-group" data-category="croissant">
+          <div class="group-title"><h3>Artisan Kruvasanlar</h3></div>
+          <div class="menu-grid">
+            <article class="item"><div class="item-top"><h4>Almond</h4><span class="price">₺230</span></div><p>Badem kreması, kavrulmuş badem ve pudra şekeri.</p></article>
+            <article class="item"><div class="item-top"><h4>Çikolatalı</h4><span class="price">₺210</span></div><p>Belçika çikolatası dolgulu, tereyağlı kat kat kruvasan.</p></article>
+            <article class="item"><div class="item-top"><h4>Sade</h4><span class="price">₺180</span></div><p>72 saat dinlendirilmiş hamurdan, çıtır ve hafif.</p></article>
+          </div>
+        </div>
+
+        <div class="menu-group" data-category="croissant">
+          <div class="group-title"><h3>Scramble Kruvasan Sandviçler</h3></div>
+          <div class="menu-grid">
+            <article class="item"><div class="item-top"><h4>Rito Scramble</h4><span class="price">₺350</span></div><p>Kremalı yumurta, eski kaşar, frenk soğanı ve tereyağlı kruvasan.</p></article>
+            <article class="item"><div class="item-top"><h4>Trüflü Scramble</h4><span class="price">₺420</span></div><p>Trüf yağı, parmesan, yumurta ve roka.</p></article>
+            <article class="item"><div class="item-top"><h4>Bahçe</h4><span class="price">₺330</span></div><p>Avokado, domates, yeşillikler ve baharatlı scramble.</p></article>
+          </div>
+        </div>
+
+        <div class="menu-group" data-category="dessert">
+          <div class="group-title"><h3>Tatlılar</h3></div>
+          <div class="menu-grid">
+            <article class="item"><span class="badge">★ ŞEFİN TAVSİYESİ</span><div class="item-top"><h4>Panna Cotta</h4><span class="price">₺240</span></div><p>Vanilyalı ipeksi krema, mevsim meyveleri ve çıtır badem.</p></article>
+            <article class="item"><div class="item-top"><h4>Tiramisu</h4><span class="price">₺260</span></div><p>Mascarpone kreması, espresso ve kakao ile klasik İtalyan dokunuşu.</p></article>
+            <article class="item"><div class="item-top"><h4>Günün Tatlısı</h4><span class="price">₺230</span></div><p>Fırınımızdan çıkan günlük sürprizi ekibimize sorun.</p></article>
+          </div>
+        </div>
+
+        <div class="menu-group" data-category="drink">
+          <div class="group-title"><h3>İçecekler</h3></div>
+          <div class="menu-grid">
+            <article class="item"><div class="item-top"><h4>Flat White</h4><span class="price">₺160</span></div><p>Nitelikli çekirdek, kadifemsi süt ve dengeli espresso.</p></article>
+            <article class="item"><div class="item-top"><h4>Cold Brew</h4><span class="price">₺180</span></div><p>18 saat soğuk demlenmiş, ferah ve yoğun aromalı.</p></article>
+            <article class="item"><div class="item-top"><h4>Ev Yapımı Limonata</h4><span class="price">₺150</span></div><p>Taze limon, nane ve mevsim meyveleriyle.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="contact" id="iletisim">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <div class="eyebrow">Bir kahveye bekleriz</div>
+          <h2>Fırının sıcak,<br>sohbetin bol olduğu yer.</h2>
+          <p>Moda'nın güzel sokaklarında, iyi malzeme ve güzel anlar için buluşalım.</p>
+          <div class="socials">
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram">◎</a>
+            <a href="https://facebook.com" target="_blank" aria-label="Facebook">f</a>
+            <a href="https://maps.google.com" target="_blank" aria-label="Haritalar">⌖</a>
+          </div>
+        </div>
+        <div>
+          <h4>Adres & Çalışma Saatleri</h4>
+          <ul>
+            <li><strong>Adres</strong><br>Caferağa Mah. Moda Cad. No: 42<br>Kadıköy / İstanbul</li>
+            <li style="margin-top:16px"><strong>Pzt — Paz</strong><br>09:00 — 23:00</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Online Sipariş</h4>
+          <div class="order-buttons">
+            <a href="#">Yemeksepeti <span style="float:right">↗</span></a>
+            <a href="#">Getir Yemek <span style="float:right">↗</span></a>
+            <a href="#">Trendyol Yemek <span style="float:right">↗</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <span>© 2024 Rito Bakery Pizza. Tüm hakları saklıdır.</span>
+        <span>El yapımı, kalpten.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('header');
+    const toggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 25);
+    });
+
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      toggle.textContent = nav.classList.contains('open') ? '×' : '☰';
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        toggle.textContent = '☰';
+      });
+    });
+
+    const filters = document.querySelectorAll('.filter');
+    const groups = document.querySelectorAll('.menu-group');
+
+    filters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        filters.forEach(btn => btn.classList.remove('active'));
+        filter.classList.add('active');
+        const selected = filter.dataset.filter;
+        groups.forEach(group => {
+          group.style.display = selected === 'all' || group.dataset.category === selected ? 'block' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
